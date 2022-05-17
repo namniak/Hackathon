@@ -1,0 +1,11 @@
+.List {
+  .item {
+    display: flex;
+    padding: 5px 20px;
+    cursor: pointer;
+
+    .copy {
+      padding: 0 10px;
+    }
+  }
+}

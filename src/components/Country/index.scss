@@ -1,0 +1,23 @@
+.Country {
+  padding: 20px;
+
+  button {
+    margin: 10px 0;
+  }
+
+  .block {
+    display: flex;
+
+    aside {
+      padding: 20px;
+    }
+
+    section {
+      padding: 20px;
+    }
+
+    img {
+      width: 100px;
+    }
+  }
+}
