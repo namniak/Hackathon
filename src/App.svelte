@@ -9,6 +9,8 @@
 	const API = 'https://restcountries.com/v3.1';
 	
 	let getDefaultList = async function () {
+		if (get(searchQuery)) return;
+		
 		const list = await fetch(`${API}/all`)
 				.then(response => response.json())
 				.catch(error => {
@@ -18,6 +20,8 @@
 	}
 	
 	let setCurrSearchResult = async function () {
+		if (!get(searchQuery)) return;
+		
 		const list = await fetch(`${API}/name/${get(searchQuery)}`)
 				.then(response => response.json())
 				.catch(error => {
@@ -42,6 +46,14 @@
 	
 	$: {
 		if (!$searchQuery) {
+			getDefaultList();
+		}
+	}
+	
+	$: {
+		if (!$currCountryOpen) {
+			$searchQuery = '';
+			$noResults = false;
 			getDefaultList();
 		}
 	}

@@ -1,9 +1,5 @@
 <script>
-	import {get} from 'svelte/store';
-	import {currCountryOpen, pinnedList, searchQuery} from "../../stores";
-	
-	$currCountryOpen = get(currCountryOpen);
-	$pinnedList = get(pinnedList);
+	import {currCountryOpen, pinnedList} from "../../stores";
 	
 	let pinned = !!$pinnedList.filter(({cca2}) => cca2 === $currCountryOpen.cca2).length;
 	let disabled = $pinnedList.length >= 5 && !pinned;
@@ -12,7 +8,7 @@
 		const tempList = [...$pinnedList];
 		
 		if (pinned) {
-			$pinnedList = tempList?.filter(({cca2}) => cca2 === !$currCountryOpen.cca2);
+			$pinnedList = tempList?.filter(({cca2}) => cca2 !== $currCountryOpen.cca2);
 			pinned = false;
 			return;
 		}
@@ -25,10 +21,8 @@
 		const matched = !!tempList.filter(({cca2}) => cca2 === $currCountryOpen.cca2).length;
 		if (!matched) {
 			tempList.push($currCountryOpen);
-			
 			$pinnedList = tempList;
 			pinned = true;
-			$searchQuery = '';
 		}
 	}
 </script>
